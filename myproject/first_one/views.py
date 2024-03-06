@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from .forms import SignUpForm
+from django.views.decorators.cache import never_cache
 
 
 """ this is sign up """
 
-
+@never_cache
 def signup(request):
-    
+
     if request.user.is_authenticated:
         return redirect('firstpage')
 
@@ -31,6 +32,7 @@ def signup(request):
 
 """ if you authenticated you return frirspage otherwaise return home page"""
 
+@never_cache
 def home(request):
     if request.user.is_authenticated:
         return redirect('firstpage')
@@ -40,6 +42,7 @@ def home(request):
 """ this is user login """
 
 
+@never_cache
 def user_login(request):
 
     if request.user.is_authenticated:
@@ -61,7 +64,7 @@ def user_login(request):
 
 """ this is user logout"""
 
-
+@never_cache
 def user_logout(request):
     if request.user.is_authenticated:
         # Delete the 'visit_count' cookie from the response
